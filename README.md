@@ -5,15 +5,6 @@ package Greedy;
 // 1번째 줄에 K원을 만드는 데 필요한 동전 개수의 최소값 출력
 import java.util.Scanner;
 
-
-
-
-
-
-
-
-
-
 public class P11047 {
 
 	public static void main(String[] args) {
