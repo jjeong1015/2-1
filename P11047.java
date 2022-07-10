@@ -19,7 +19,7 @@ public class P11047 {
 			K = scanner.nextInt(); // Target amount -> 1<=K<=100,000,000, int type input and return
 		} while (K<1 || K>100000000);
 		
-		int A[] = new int[N]; // Declare and initialize arrays(Securing seats as many as the coin types) -> 1<=A[]<=1,000,000
+		int A[] = new int[N]; // Declare and initialize arrays(Securing seats as many as the coin types -> 1<=A[]<=1,000,000
 		
 		for (int i=0; i<N; i++) { // Inserting a Coin Type into an Array
 			A[i] = scanner.nextInt();
