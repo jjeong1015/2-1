@@ -34,7 +34,7 @@ public class P11724 {
 		for (int i=0; i<m; i++) { // To save graph data to an adjacency list
 			st = new StringTokenizer(br.readLine()); // readLine -> read s(=u), e(=v) as many as m
 			int s = Integer.parseInt(st.nextToken()); // Read Integer.parseInt -> String as an integer
-			int e = Integer.parseInt(st.nextToken()); // nextToken -> Read in spaces
+			int e = Integer.parseInt(st.nextToken()); // nextToken -> Take out the next token in the object and return it
 			A[s].add(e); // Because it is a two-way edge, the path from the s vertex to the e vertex (indicating that the s vertex is adjacent (directly connected) to the e vertex)
 			A[e].add(s); // The path from e vertex to s vertex (+ there is an edge between the two vertices)
 		}
