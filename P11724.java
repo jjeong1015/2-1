@@ -17,7 +17,7 @@ public class P11724 {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		// Buffer Usage Reasons -> Receive Entire Input on One Line, Faster than Scanner
-		StringTokenizer st = new StringTokenizer(br.readLine()); // Read Line (n, m)
+		StringTokenizer st = new StringTokenizer(br.readLine()); // read Line(n, m)
 		// When using the readLine() method
 		// 1. When reading a value, the string value reads all of the characters (enter values) in one line
 		// 2. If the return value is fixed to a string and input to a type other than the string, it must be transformed
