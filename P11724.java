@@ -1,71 +1,61 @@
 package Search;
-// ¹æÇâ ¾ø´Â ±×·¡ÇÁ°¡ ÁÖ¾îÁ³À» ¶§ ¿¬°á ¿ä¼ÒÀÇ °³¼ö¸¦ ±¸ÇÏ´Â ÇÁ·Î±×·¥À» ÀÛ¼ºÇÏ½Ã¿À.
-// 1¹øÂ° ÁÙ¿¡ ³ëµåÀÇ °³¼ö N°ú ¿¡ÁöÀÇ °³¼ö M, 2¹øÂ° ÁÙºÎÅÍ M°³ÀÇ ÁÙ¿¡ ¿¡ÁöÀÇ ¾ç³¡ Á¡ u¿Í v°¡ ÁÖ¾îÁø´Ù. °°Àº ¿¡Áö´Â ÇÑ ¹ø¸¸ ÁÖ¾îÁø´Ù.
-// 1¹øÂ° ÁÙ¿¡ ¿¬°á ¿ä¼ÒÀÇ °³¼ö¸¦ Ãâ·ÂÇÑ´Ù.
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+// ë°©í–¥ ì—†ëŠ” ê·¸ë˜í”„ê°€ ì£¼ì–´ì¡Œì„ ë•Œ ì—°ê²° ìš”ì†Œì˜ ê°œìˆ˜ë¥¼ êµ¬í•˜ëŠ” í”„ë¡œê·¸ë¨ì„ ì‘ì„±í•˜ì‹œì˜¤.
+// 1ë²ˆì§¸ ì¤„ì— ë…¸ë“œì˜ ê°œìˆ˜ Nê³¼ ì—ì§€ì˜ ê°œìˆ˜ M, 2ë²ˆì§¸ ì¤„ë¶€í„° Mê°œì˜ ì¤„ì— ì—ì§€ì˜ ì–‘ë ì  uì™€ vê°€ ì£¼ì–´ì§„ë‹¤. ê°™ì€ ì—ì§€ëŠ” í•œ ë²ˆë§Œ ì£¼ì–´ì§„ë‹¤.
+// 1ë²ˆì§¸ ì¤„ì— ì—°ê²° ìš”ì†Œì˜ ê°œìˆ˜ë¥¼ ì¶œë ¥í•œë‹¤.
+import java.io.BufferedReader; // Substream classes for per-character I/O
+import java.io.IOException; // Default class for exceptions that were threaded while accessing information using streams, files, and directories
+import java.io.InputStreamReader; // A bridge from byte streams to character streams
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class P11724 {
-	private static final Integer Interger = null;
-	static ArrayList<Integer>[] A;
+	static ArrayList<Integer>[] A; // Declare an array that can be resized (normal arrays are resized X)
 	static boolean visited[];
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		int n = Interger.parseInt(st.nextToken());
-		int m = Interger.parseInt(st.nextToken());
-		A = new ArrayList[n+1];
-		visited = new boolean[n+1];
-		for (int i=1; i<n+1; i++) { // ÀÎÁ¢ ¸®½ºÆ® °¢ ArrayList ÃÊ±âÈ­ÇÏ±â
+		// Buffer Usage Reasons -> Receive Entire Input on One Line, Faster than Scanner
+		StringTokenizer st = new StringTokenizer(br.readLine()); // Read Line (n, m)
+		// When using the readLine() method
+		// 1. When reading a value, the string value reads all of the characters (enter values) in one line
+		// 2. If the return value is fixed to a string and input to a type other than the string, it must be transformed
+		// 3. Declare import java.io.IOException as exception handling and write the throws IOException next to the main thread
+		// 4. Invoke the values entered through readLine() in order by dividing them into lines
+		// cf) When using read() method, transform to int value and read
+		int n = Integer.parseInt(st.nextToken()); // n in br (number before space)
+		int m = Integer.parseInt(st.nextToken()); // m in br (number after space)
+		A = new ArrayList[n+1]; // Why n+1 instead of n -> To make the calculation easier
+		visited = new boolean[n+1]; // Why n+1 instead of n -> To make the calculation easier
+		for (int i=1; i<n+1; i++) { // Initialize each ArrayList in the adjacency list (where s(=u), e(=v) will enter)
 			A[i] = new ArrayList<Integer>();
 		}
-		for (int i=0; i<m; i++) { // ÀÎÁ¢ ¸®½ºÆ®¿¡ ±×·¡ÇÁ µ¥ÀÌÅÍ ÀúÀåÇÏ±â
-			st = new StringTokenizer(br.readLine());
-			int s = Integer.parseInt(st.nextToken());
-			int e = Integer.parseInt(st.nextToken());
-			A[s].add(e); // ¾ç¹æÇâ ¿¡ÁöÀÌ¹Ç·Î ¾çÂÊ¿¡ ¿¡Áö¸¦ ´õÇÏ±â
-			A[e].add(s);
+		for (int i=0; i<m; i++) { // To save graph data to an adjacency list
+			st = new StringTokenizer(br.readLine()); // readLine -> read s(=u), e(=v) as many as m
+			int s = Integer.parseInt(st.nextToken()); // Read Integer.parseInt -> String as an integer
+			int e = Integer.parseInt(st.nextToken()); // nextToken -> Read in spaces
+			A[s].add(e); // Because it is a two-way edge, the path from the s vertex to the e vertex (indicating that the s vertex is adjacent (directly connected) to the e vertex)
+			A[e].add(s); // The path from e vertex to s vertex (+ there is an edge between the two vertices)
 		}
 		int count=0;
 		for (int i=1; i<n+1; i++) { 
-			if (!visited[i]) { // ¹æ¹®ÇÏÁö ¾ÊÀº ³ëµå°¡ ÀÖÀ» °æ¿ì
-				count++; // ¿¬°á ¿ä¼Ò °³¼ö Ãß°¡
-				DFS(i); // DFS ½ÇÇà
+			if (!visited[i]) { // If there are nodes that have not been visited
+				count++; // Add the number of connecting elements
+				DFS(i); // Running DFS
 			}
 		}
 		System.out.println(count);
 	}
 	
 	static void DFS(int v) {
-		if (visited[v]) { // ÇöÀç ³ëµå == ¹æ¹®ÇÑ ³ëµå
+		if (visited[v]) { // Current node == visited node
 			return;
 		}
-		visited[v]=true; // ¹è¿­¿¡ ÇöÀç ³ëµå ¹æ¹® ±â·ÏÇÏ±â
+		visited[v]=true; // Record the current node visit in the array
 		for (int i:A[v]) {
-			if (visited[i] == false) { // ¿¬°á ³ëµå Áß ¹æ¹®ÇÏÁö ¾Ê¾Ò´ø ³ëµå DFS Å½»öÇÏ±â (Àç±Í ÇÔ¼ö)
+			if (visited[i] == false) { // Navigating DFS for nodes that have not been visited among connection nodes (recursive function)
 				DFS(i);
 			}
 		}
 	}
-	
-	/*
-	public static void main(String[] args) {
-		
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("³ëµå °³¼ö, ¿¡Áö °³¼ö¸¦ ÀÔ·ÂÇÏ¼¼¿ä : ");
-		long node = scanner.nextLong();
-		long edge = scanner.nextLong();
-		
-		for(int i=0; i<edge; i++) {
-			int u = scanner.nextInt();
-			int v = scanner.nextInt();
-		}
-		// ½ºÅÃ ÇÔ¼ö È£ÃâÇØ¼­ ¸µÅ©µå¸®½ºÆ®·Î ²¿¸®¿¡ ²¿¸®¸¦ ¹°¾î ¿¬°áÇÏ±â
-	}
-	*/
 }
