@@ -6,9 +6,9 @@ package Search;
 import java.io.BufferedReader; // Substream classes for per-character I/O
 import java.io.IOException; // Default class for exceptions that were threaded while accessing information using streams, files, and directories
 import java.io.InputStreamReader; // A bridge from byte streams to character streams
-import java.util.ArrayList;
+import java.util.ArrayList; // List is similar to array
 import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.StringTokenizer; // Provides the ability to separate strings to generate tokens (Token = each separated string)
 
 public class P11724 {
 	static ArrayList<Integer>[] A; // Declare an array that can be resized (normal arrays are resized X)
